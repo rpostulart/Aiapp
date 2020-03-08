@@ -20,6 +20,7 @@ amplify/mock-data
 **/amplify-meta.json
 **/awscloudformation
 **/team-provider-info.json
+**/backend-config.json
 build/
 dist/
 node_modules/
