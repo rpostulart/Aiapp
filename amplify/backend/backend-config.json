@@ -1,0 +1,57 @@
+{
+    "auth": {
+        "scanapp70d4d30f": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": []
+        }
+    },
+    "api": {
+        "scanapp": {
+            "service": "AppSync",
+            "providerPlugin": "awscloudformation",
+            "output": {
+                "authConfig": {
+                    "additionalAuthenticationProviders": [],
+                    "defaultAuthentication": {
+                        "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+                        "userPoolConfig": {
+                            "userPoolId": "authscanapp70d4d30f"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "predictions": {
+        "identifyText07bbd862": {
+            "providerPlugin": "awscloudformation",
+            "service": "Rekognition",
+            "dependsOn": [],
+            "identifyType": "identifyText"
+        }
+    },
+    "storage": {
+        "s3249d326c": {
+            "service": "S3",
+            "providerPlugin": "awscloudformation"
+        }
+    },
+    "function": {
+        "matchFunction": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "api",
+                    "resourceName": "scanapp",
+                    "attributes": [
+                        "GraphQLAPIIdOutput",
+                        "GraphQLAPIEndpointOutput"
+                    ]
+                }
+            ]
+        }
+    }
+}
